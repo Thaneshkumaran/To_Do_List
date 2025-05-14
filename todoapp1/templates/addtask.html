@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="former">
+<h1>Add a New Task</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" style="background-color: lightblue; color: black; padding: 10px; border-radius: 5px; border: none;">
+        Add Task</button>
+    <button onclick="location.href='{% url 'index1' %}'" style="background-color: lightblue; color: black; padding: 10px; border-radius: 5px; border: none;">
+        Go To Task</button>
+</form></div>
+{% endblock %}

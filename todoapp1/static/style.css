@@ -1,0 +1,106 @@
+#former{
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+h1{
+    text-align: center;
+}
+form {
+    margin-top: 20px;
+}
+
+form p {
+    margin-bottom: 15px;
+}
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+}
+input[type="text"],
+textarea,
+select,
+input[type="date"],
+input[type="checkbox"] {
+            width: 100%;
+            padding: 12px;
+            margin: 6px 0 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            box-sizing: border-box;
+}
+form button.submit-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+form button.submit-btn:hover {
+    background-color: #0056b3;
+}
+
+.task1 {
+    /* margin-bottom: 20px;  */
+    /* flex: 0 1 calc(50% - 20px); */
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.task1 h2 {
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.task1 span {
+    color: #333;
+}
+
+.task1 p {
+    margin: 5px 0;
+}
+
+#add-button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+#del-button {
+    background-color:red;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.task2{ 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 10px;
+}
+.task3{
+    flex: 0 0 48%; 
+    border: 1px solid #ccc; 
+    padding: 10px; 
+    border-radius: 10px; 
+    margin-bottom: 20px;
+    max-width: 270px;
+}
