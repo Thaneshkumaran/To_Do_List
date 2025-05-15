@@ -20,7 +20,7 @@
                     <p>Updated at: {{ task.updated_at }}</p>
                     <p>Status: {{ task.status }}</p>
                     <p>task: {{task.id}}</p>
-                    <button id="add-button">Change Status</button>
+                    <button onclick="location.href='{%url 'change_status' id=task.id%}'" id="add-button">Change Status</button>
                     <button onclick="confirmBeforeDelete('{% url 'delete_task' id=task.id %}')" id="del-button">Delete Task</button>
 
                 </div>

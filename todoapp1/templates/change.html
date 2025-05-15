@@ -1,6 +1,14 @@
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/Thaneshkumaran/To_Do_List.git
-git push -u origin main
+{% extends "base.html" %}
+{% block content %}
+<div id="former">
+<h1>change Status</h1>
+<form method="post">
+    {% csrf_token %}
+    <label for="{{form.status.id}}">Status:</label>
+    {{ form.status }}
+    <button type="submit" style="background-color: lightblue; color: black; padding: 10px; border-radius: 5px; border: none;">
+        Add Task</button>
+    <button onclick="location.href='{% url 'index1' %}'" style="background-color: lightblue; color: black; padding: 10px; border-radius: 5px; border: none;">
+        Go To Task</button>
+</form></div>
+{% endblock %}

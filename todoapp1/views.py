@@ -25,17 +25,22 @@ def add_task(request):
     else:
         form = TaskForm()
     return render(request, 'addtask.html', {'form': form})
-def change_status(request,task_id):
-    task_obj = task.objects.get(id=task_id)
-    status=status.objects.all()
-    # if task_obj.status == status.TODO:
-    #     task_obj.status = status.DONE
-    #     task_obj.save()
-    #     return redirect('index1')
-    # else:
-    #     task_obj.status = status.TODO
-    
-    return render(request, 'index.html', {"statuses": status, "task": task_obj})
+def change_post(request, id):
+    task_obj = task.objects.get(id=id)
+    status= status.objects.all()
+    if request.method == 'POST':
+        # form = TaskForm(request.POST, instance=task_obj)
+        status_id = request.POST.get('status')
+        status_instance = status.objects.get(id=status_id)  # ✅ Correct
+        task_obj.status = status_instance
+        form = TaskForm(request.POST, instance=task_obj)
+        if form.is_valid():
+            task_obj.status = status_instance
+            form.save()
+            return redirect('index1')
+    else:
+        form = TaskForm(instance=task_obj)
+    return render(request, 'change.html', {'form': form,"status":s})
 def delete_task(request,id):
     
     post = task.objects.get(id=id)
