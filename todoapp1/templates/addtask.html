@@ -7,7 +7,10 @@
     {{ form.as_p }}
     <button type="submit" style="background-color: lightblue; color: black; padding: 10px; border-radius: 5px; border: none;">
         Add Task</button>
-    <button onclick="location.href='{% url 'index1' %}'" style="background-color: lightblue; color: black; padding: 10px; border-radius: 5px; border: none;">
-        Go To Task</button>
+    <a href="{% url 'index1' %}" style="text-decoration: none;">
+    <button type="button" style="background-color: lightblue; color: black; padding: 10px; border-radius: 5px; border: none;">
+        Go To Task
+    </button>
+</a>
 </form></div>
 {% endblock %}

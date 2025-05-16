@@ -24,4 +24,6 @@ urlpatterns = [
     path("add_task/", views.add_task, name="add_task"),
     path("change_status/<int:id>/", views.change_post, name="change_status"),
     path("delete_post/<int:id>/", views.delete_task, name="delete_task"),
+    path("register/", views.register, name="register"),
+    path("login/", views.login_view, name="login"),
 ]
