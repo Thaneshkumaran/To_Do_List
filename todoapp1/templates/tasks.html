@@ -1,11 +1,10 @@
-
-
-
 {% extends "base.html" %}
 {% block content %}
-
 <div class="task1">
     <h1>This is the List of Tasks</h1>
+   <button onclick="location.href='{% url 'add_task' %}'" style="background-color: lightblue; color: black; padding: 10px; border-radius: 5px; border: none;margin: 10px;gap: 10px;">
+        Add a New Task
+    </button>
     {% if tasks %}
         <div  class="task2">
             {% for task in tasks %}
@@ -17,16 +16,29 @@
                     <p>Updated at: {{ task.updated_at }}</p>
                     <p>Status: {{ task.status }}</p>
                     <p>task: {{task.id}}</p>
-                    <p>Assigned to: {{task.required_user}}</p>
-                    <button onclick="location.href='{%url 'change_status' id=task.id%}'" id="add-button">Change Status</button>
+                    <p>Assigning to: {{ task.user }}</p>
                    
+                    <button onclick="location.href='{%url 'change_status' id=task.id%}'" id="add-button">Change Status</button>
+                    <button onclick="confirmBeforeDelete('{% url 'delete_task' id=task.id %}')" id="del-button">Delete Task</button>
+
                 </div>
             {% endfor %}
         </div>
     {% else %}
         <p>No tasks available.</p>
     {% endif %}
- 
+   
+    
+  
+</div>
+</div>
+<script>
+    function confirmBeforeDelete(url){
+        var r = confirm("Are you sure you want to delete this post?")
+        if(r){
+            window.location.href = url
+        }
+    }
 
-
+</script>
 {% endblock %}

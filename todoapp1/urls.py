@@ -21,6 +21,7 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", views.task_list, name="index1"),
+    path("task_list/", views.task_list1, name="task_list"),
     path("add_task/", views.add_task, name="add_task"),
     path("change_status/<int:id>/", views.change_post, name="change_status"),
     path("delete_post/<int:id>/", views.delete_task, name="delete_task"),

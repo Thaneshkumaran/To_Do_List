@@ -12,6 +12,9 @@ class task(models.Model):
     status = models.ForeignKey('status', on_delete=models.CASCADE, null=True, blank=True)
     due_date = models.DateField(null=True, blank=True)
     user = models.ForeignKey("CustomUser", on_delete=models.CASCADE, null=True, blank=True)
+    required_user= models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='required_tasks', null=True, blank=True
+    )
     def __str__(self):
         return self.title
     

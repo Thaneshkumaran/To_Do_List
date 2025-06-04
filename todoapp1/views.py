@@ -13,24 +13,22 @@ User = get_user_model()
 def task_list(request):
     # tasks = task.objects.all()
     tasks=task.objects.filter(user=request.user)
-    # if request.method == 'POST':
-    #     form = TaskForm(request.POST)
-    #     if form.is_valid():
-    #         form.save()
-    #         return redirect('index1')
-    # else:
-    #     form = TaskForm()
-    # return HttpResponse("Task List: " + ", ".join([str(task) for task in tasks]))\
+    print("Logged-in user:", request.user, "ID:", request.user.id)
     return render(request,'index.html', {'tasks': tasks})
+@login_required
+def task_list1(request):
+    tasks = task.objects.filter(required_user=request.user)
+    return render(request, 'tasks.html', {'tasks': tasks})
 @login_required
 def add_task(request):
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
             task_instance = form.save(commit=False)  # Don't save yet
-            # task_instance.user = request.user        # Set the user
+            task_instance.required_user = request.user        # Set the user
+            print("User:", request.user, "ID:", request.user.id)  # Debugging line
             task_instance.save()                     # Now save with user
-            return redirect('index1')
+            return redirect('task_list')
             
     else:
         form = TaskForm()
@@ -55,7 +53,7 @@ def change_post(request, id):
 def delete_task(request,id):
     post = task.objects.get(id=id)
     post.delete()
-    return redirect('index1')
+    return redirect('task_list')
 def register(request):
     form = RegisterForm()
     if request.method == 'POST':
@@ -84,14 +82,12 @@ def login_view(request):
                 password=form.cleaned_data['password']
             )
             if user is not None:
-                if not user.is_superuser:
-                    login(request, user)
-                    n=1
-                    return redirect('index1')
+                login(request, user)
+                if user.user_type == '1':
+                    return redirect('task_list')
                 else:
-                    login(request, user)
-                    n=0
-                    return redirect('index1')  # Change to your homepage route
+                    return redirect('index1')
+                # Change to your homepage route
             else  :
                 messages.error(request, 'Invalid username or password.')
     else:
