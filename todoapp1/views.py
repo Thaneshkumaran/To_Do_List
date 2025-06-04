@@ -1,11 +1,13 @@
-from pyexpat.errors import messages
-from django.shortcuts import render,HttpResponse,redirect
-from .models import task,status
-from .froms import TaskForm,RegisterForm,LoginForm
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.shortcuts import render, HttpResponse, redirect
+from .models import task, status
+from .froms import TaskForm, RegisterForm, LoginForm
+from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+
+User = get_user_model()
+
+
 # Create your views here.
 @login_required
 def task_list(request):
@@ -26,11 +28,10 @@ def add_task(request):
         form = TaskForm(request.POST)
         if form.is_valid():
             task_instance = form.save(commit=False)  # Don't save yet
-            task_instance.user = request.user        # Set the user
+            # task_instance.user = request.user        # Set the user
             task_instance.save()                     # Now save with user
             return redirect('index1')
-            form.save()
-            return redirect('index1')
+            
     else:
         form = TaskForm()
     return render(request, 'addtask.html', {'form': form})
@@ -56,7 +57,7 @@ def delete_task(request,id):
     post.delete()
     return redirect('index1')
 def register(request):
-    form= RegisterForm()
+    form = RegisterForm()
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid():
@@ -69,6 +70,8 @@ def register(request):
                 user.save()
                 messages.success(request, "User Created Successfully")
                 return redirect('login')
+            else:
+                messages.error(request, "Passwords do not match.")
     return render(request, 'register.html', {'form': form})
 
 def login_view(request):
@@ -81,9 +84,15 @@ def login_view(request):
                 password=form.cleaned_data['password']
             )
             if user is not None:
-                login(request, user)
-                return redirect('index1')  # Change to your homepage route
-            else:
+                if not user.is_superuser:
+                    login(request, user)
+                    n=1
+                    return redirect('index1')
+                else:
+                    login(request, user)
+                    n=0
+                    return redirect('index1')  # Change to your homepage route
+            else  :
                 messages.error(request, 'Invalid username or password.')
     else:
         form = LoginForm()

@@ -19,7 +19,7 @@ from django.urls import path, include
 from todoapp1 import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    # path('admin/', admin.site.urls),
     path('', include('todoapp1.urls')),
     # path('', views.index, name='index'),
 ]
