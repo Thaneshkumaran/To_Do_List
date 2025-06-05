@@ -6,7 +6,7 @@ User = get_user_model()
 class TaskForm(forms.ModelForm):
     class Meta:
         model = task
-        fields = ['title', 'description', 'perity', 'status', 'due_date', 'user']
+        fields = ['title', 'description', 'perity', 'status', 'due_date']
         widgets = {
             'due_date': forms.DateInput(attrs={'type': 'date'}),
         }

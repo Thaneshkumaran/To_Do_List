@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="task1">
+    <h1>This is the List of Users</h1>
+             <button onclick="location.href='{% url 'register' %}'" style="background-color: lightblue; color: black; padding: 10px; border-radius: 5px; border: none;margin: 10px;gap: 10px;">
+        Add a New User
+    </button>  
+    {% if users %}
+        <div class="task2">
+            {% for user in users %}
+                <div class="task3">
+                    <h2>Username: {{ user.username }}</h2>
+                    <p>Email: {{ user.email }}</p>
+                    <p>First Name: {{ user.first_name }}</p>
+                    <p>Last Name: {{ user.last_name }}</p>
+                    <p>User ID: {{ user.id }}</p>
+                    <button onclick="location.href='{% url 'add_task' id=user.id%}'" style="background-color: lightblue; color: black; padding: 10px; border-radius: 5px; border: none;margin: 10px;gap: 10px; display: fle;">
+        Add a New Task
+    </button>    <button onclick="location.href='{% url 'add_task' id=user.id%}'" style="background-color: lightblue; color: black; padding: 10px; border-radius: 5px; border: none;margin: 10px;gap: 10px; display: inline;">
+        Add a New Task
+    </button>
+                <button onclick="location.href='{% url 'change_status' id=user.id%}'" id="add-button">Add a New Task</button>
+    </button>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No users available.</p>
+    {% endif %}
+</div>
+{%endblock %}

@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import task, status
+from .models import task, status,CustomUser
 from .froms import TaskForm, RegisterForm, LoginForm
 from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib import messages
@@ -20,12 +20,15 @@ def task_list1(request):
     tasks = task.objects.filter(required_user=request.user)
     return render(request, 'tasks.html', {'tasks': tasks})
 @login_required
-def add_task(request):
+def add_task(request,id):
     if request.method == 'POST':
+         # Get the user by ID
         form = TaskForm(request.POST)
         if form.is_valid():
+            user_de= CustomUser.objects.get(id=id) 
             task_instance = form.save(commit=False)  # Don't save yet
-            task_instance.required_user = request.user        # Set the user
+            task_instance.required_user = request.user  
+            task_instance.user= user_de   # Set the user
             print("User:", request.user, "ID:", request.user.id)  # Debugging line
             task_instance.save()                     # Now save with user
             return redirect('task_list')
@@ -84,7 +87,7 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 if user.user_type == '1':
-                    return redirect('task_list')
+                    return redirect('user_profile')
                 else:
                     return redirect('index1')
                 # Change to your homepage route
@@ -93,3 +96,8 @@ def login_view(request):
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
+@login_required
+def user_profile(request):
+    form = CustomUser.objects.exclude(id=request.user.id)
+    
+    return render(request, 'user.html', {'users': form})
